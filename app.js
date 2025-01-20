@@ -1,7 +1,7 @@
 import inquirer from "inquirer"
-// const fs = require('fs');
+import fs from 'fs';
 
-// const generatePage = require('./src/page-template.js');
+import generatePage from './src/page-template.js';
 
 // const pageHTML = generatePage(name,github);
 
@@ -136,6 +136,12 @@ promptUser()
     // .then(answers => console.log(answers))
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData);
-    })
+        const pageHTML = generatePage(portfolioData);
+
+     fs.writeFile('./index.html', pageHTML, err => {
+      if (err) throw new Error(err);
+
+        console.log('Page created! Check out index.html in this directory to see it!');
+    });
+  });
     // .then(projectAnswers => console.log(projectAnswers));
